@@ -1,13 +1,149 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+    font-family: sans-serif;
+}
+
+.main__container {
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.sidebar__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-right: 2px solid #80CBC4;
+    width: 20%;
+}
+
+.create__group__ctn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100px;
+}
+
+.create__group__ctn input,
+.create__task__ctn input {
+    height: 30px;
+    width: 80%;
+    border: 2px solid #80CBC4;
+    border-radius: 10px;
+    outline: none;
+    padding-left: 10px;
+}
+
+.create__task__ctn input {
+    height: 40px;
+    width: 50%;
+    font-size: 20px;
+}
+
+.create__group__btn,
+.create__task__btn {
+    width: 50%;
+    height: 30px;
+    background-color: #0081CE;
+    color: #ffffff;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.create__task__btn {
+    width: 15%;
+    height: 35px;
+    margin-left: 30px;
+    vertical-align: middle;
+}
+
+.create__group__btn:hover,
+.create__task__btn:hover {
+    box-shadow: 0 0 5px rgba(0,0,0,0.4);
+    background-color: #0098F0;
+}
+
+.group__list {
+    height: 30%;
+    color: #0098F0;
+    padding-left: 20px;
+}
+
+.group__list span {
+    font-size: 18px;
+}
+
+.group__list ul {
+    color: #000000;
+    font-size: 20px;
+    margin-top: 15px;
+    list-style: none;
+    margin-left: 20px;
+    line-height: 1.6;
+}
+
+.group__list ul li {
+    word-break: break-all;
+}
+
+
+.main__contant {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 80%;
+}
+
+.create__task__ctn {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    width: 90%;
+}
+
+.task__list {
+    height: 320px;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.task__list span {
+    font-size: 25px;
+    color: #0098F0;
+}
+
+.task__list ul {
+    margin-top: 20px;
+    list-style: none;
+    line-height: 1.8;
+    font-size: 20px;
+}
+
+.task__list ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid blue;
+    margin-bottom: 5px;
+    width: 150px;
+}
+
+.group__app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+.delete__btn {
+    width: 20px;
+    margin-right: 5px;
 }

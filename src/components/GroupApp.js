@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import CreateGroup from './CreateGroup';
-import GroupList from './GroupList';
+import Group from './Group';
 
 export default class GroupApp extends Component {
     constructor(props) {
@@ -12,6 +12,7 @@ export default class GroupApp extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleDelClick = this.handleDelClick.bind(this);
     }
 
     handleChange(text) {
@@ -34,6 +35,12 @@ export default class GroupApp extends Component {
         });
     }
 
+    handleDelClick(id) {
+        this.setState(prevState => ({
+            groups: prevState.groups.filter(el => el.id != id),
+        }));
+    }
+
     componentDidUpdate() {
         localStorage.setItem("groups", JSON.stringify(this.state.groups));
     }
@@ -45,7 +52,20 @@ export default class GroupApp extends Component {
                     onButtonClick={this.handleClick}
                     valueInput={this.state.text} 
                   />
-                <GroupList groups={this.state.groups} />
+                <div className='group__list'>
+                    <span>Список групп задач: </span>
+                    <ul>
+                        {
+                            this.state.groups.map(group => (
+                                <Group  key={group.id}
+                                 textContent={group.text}
+                                 id={group.id}
+                                 onDelClick={this.handleDelClick}
+                                />
+                            ))
+                        }
+                    </ul>
+                </div>
             </div>
         );
     }

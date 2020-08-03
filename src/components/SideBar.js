@@ -11,7 +11,6 @@ export default class SideBar extends React.Component {
         return (
             <div className='sidebar__container'>
                 <GroupApp />
-                {/* <Options /> */}
             </div>
         );
     }

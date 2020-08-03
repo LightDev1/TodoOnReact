@@ -91,7 +91,14 @@ body {
 }
 
 .group__list ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     word-break: break-all;
+    border: 2px solid #80CBC4;
+    width: 80%;
+    padding-left: 5px;
+    margin-bottom: 5px;
 }
 
 
@@ -134,6 +141,7 @@ body {
     border: 2px solid blue;
     margin-bottom: 5px;
     width: 150px;
+    padding-left: 5px;
 }
 
 .group__app {

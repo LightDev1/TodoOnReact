@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Task from './Task';
-import TaskList from './TaskList';
 
 export default class TodoApp extends Component {
     constructor(props) {
@@ -11,7 +10,6 @@ export default class TodoApp extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
-        // this.handleDeleteElement = this.handleDeleteElement.bind(this);
     }
 
     handleChange(e) {
@@ -44,7 +42,7 @@ export default class TodoApp extends Component {
         this.setState(prevState => ({
           tasks: prevState.tasks.filter(el => el.id != id),
         }));
-      };
+    };
 
     render() {
         return (

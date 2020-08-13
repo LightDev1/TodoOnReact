@@ -32,12 +32,12 @@ export default class GroupApp extends Component {
         this.setState({
             groups: this.state.groups.concat(newGroup),
             text: ''
-        });
+        }); 
     }
 
     handleDelClick(id) {
         this.setState(prevState => ({
-            groups: prevState.groups.filter(el => el.id != id),
+            groups: prevState.groups.filter(el => el.id !== id),
         }));
     }
 
@@ -48,7 +48,7 @@ export default class GroupApp extends Component {
     render() {
         return (
             <div className='group__app'>
-                <CreateGroup onInputChange={this.handleChange}
+                <CreateGroup text={this.state.text} onCGroupSubmit={this.props.onGroupAppSubmit} onInputChange={this.handleChange}
                     onButtonClick={this.handleClick}
                     valueInput={this.state.text} 
                   />
@@ -61,6 +61,7 @@ export default class GroupApp extends Component {
                                  textContent={group.text}
                                  id={group.id}
                                  onDelClick={this.handleDelClick}
+                                 onGroupAppClick={this.props.onGroupAppClick}
                                 />
                             ))
                         }

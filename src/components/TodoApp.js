@@ -40,13 +40,13 @@ export default class TodoApp extends Component {
 
     handleDeleteElement(id){
         this.setState(prevState => ({
-          tasks: prevState.tasks.filter(el => el.id != id),
+          tasks: prevState.tasks.filter(el => el.id !== id),
         }));
     };
 
     render() {
         return (
-            <div>
+            <div className='main__contant'>
                 <div className='create__task__ctn'>
                     <input name='create' onChange={this.handleChange} value={this.state.text} />
                     <button className='create__task__btn' onClick={this.handleClick}>Создать задачу</button>

@@ -11,6 +11,8 @@ export default class GroupList extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
+ 
+
     handleDelClick(id) {
         this.props.onDelClick(id);
     }
@@ -31,7 +33,7 @@ export default class GroupList extends Component {
             );
         } else {
             return (
-                <li onClick={this.handleClick}>{this.props.textContent}</li>
+                <li onDoubleClick={() => this.handleDoubleClick()} onClick={this.handleClick}>{this.props.textContent}</li>
             );
         }
        

@@ -11,11 +11,6 @@ export default class GroupList extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
- 
-
-    handleDelClick(id) {
-        this.props.onDelClick(id);
-    }
 
     handleClick() {
         this.setState({
@@ -28,7 +23,10 @@ export default class GroupList extends Component {
             return (
                 <li onClick={this.handleClick}>
                     {this.props.textContent}
-                    <img className='delete__btn' src={Delete} alt='delete' onClick={() => {this.handleDelClick(this.props.id)}} />
+                    <img className='delete__btn' src={Delete} alt='delete' onClick={() => {
+                        this.props.onDelClick(this.props.id)
+                        }}
+                    />
                  </li>
             );
         } else {

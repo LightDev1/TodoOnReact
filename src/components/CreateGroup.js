@@ -49,7 +49,7 @@ export default class CreateGroup extends Component {
         return (
             <div className='create__group__ctn'>
                 <input name='create' onChange={this.inputChange} value={this.state.text}  />
-                <button className='create__group-btn' onClick={this.buttonClick}>Создать группу</button>
+                <button className='create__group-btn' onClick={this.buttonClick}>Добавить группу</button>
             </div>
         );
     }

@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import axios from 'axios';
+import classNames from 'classnames';
+
 import Delete from '../img/delete.svg';
 
 export default class GroupList extends Component {
@@ -8,32 +11,36 @@ export default class GroupList extends Component {
             isClicked: false,
         };
 
-        this.handleClick = this.handleClick.bind(this);
+        this.handleDelClick = this.handleDelClick.bind(this);
     }
 
-
-    handleClick() {
-        this.setState({
-            isClicked: !this.state.isClicked,
-        })
-    }
+    handleDelClick(id) {
+        if (window.confirm('Вы действительно хотите удалить список?')) {
+            axios.delete('http://localhost:3001/lists/' + id).then(() => {
+                 this.props.onRemove(id)
+            });
+        }
+     }
 
     render() {
-        if (this.state.isClicked) {
             return (
-                <li onClick={this.handleClick}>
-                    {this.props.textContent}
+                <li
+                    onClick={() => {
+                        this.props.onClickGroup(this.props.item);;
+                    }}
+                    className={classNames({
+                        active: this.props.activeItem && this.props.activeItem.id === this.props.item.id
+                    })}
+                >
+                    <span>
+                        {this.props.textContent}
+                        {this.props.item.tasks && ` (${this.props.item.tasks.length})`}
+                    </span>
                     <img className='delete__btn' src={Delete} alt='delete' onClick={() => {
-                        this.props.onDelClick(this.props.id)
+                        this.handleDelClick(this.props.id)
                         }}
                     />
-                 </li>
+                </li>
             );
-        } else {
-            return (
-                <li onDoubleClick={() => this.handleDoubleClick()} onClick={this.handleClick}>{this.props.textContent}</li>
-            );
-        }
-       
     }
 }

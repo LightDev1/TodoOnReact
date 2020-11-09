@@ -24,14 +24,6 @@
       "name": "Спорт",
       "colorId": 3,
       "id": 6
-    },
-    {
-      "name": "Работа",
-      "id": 7
-    },
-    {
-      "name": "Работа45",
-      "id": 8
     }
   ],
   "tasks": [
@@ -39,7 +31,7 @@
       "id": 1,
       "listId": 2,
       "text": "Изучить JavaScript",
-      "completed": true
+      "completed": false
     },
     {
       "id": 2,
@@ -51,18 +43,18 @@
       "id": 3,
       "listId": 2,
       "text": "ReactJS Hooks (useState, useReducer, useEffect и т.д.)",
-      "completed": true
+      "completed": false
     },
     {
       "id": 4,
       "listId": 2,
       "text": "Redux (redux-observable, redux-saga)",
-      "completed": false
+      "completed": true
     },
     {
       "listId": 2,
       "text": "123",
-      "completed": true,
+      "completed": false,
       "id": 5
     },
     {
@@ -80,7 +72,7 @@
     {
       "listId": 4,
       "text": "Купить 1984!",
-      "completed": true,
+      "completed": false,
       "id": 10
     },
     {
@@ -94,6 +86,18 @@
       "text": "555",
       "completed": false,
       "id": 13
+    },
+    {
+      "listId": 6,
+      "text": "Подтягивание",
+      "completed": false,
+      "id": 14
+    },
+    {
+      "listId": 6,
+      "text": "Отжимание",
+      "completed": true,
+      "id": 15
     }
   ],
   "colors": [

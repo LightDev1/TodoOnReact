@@ -1,64 +1,46 @@
-import React, { Component } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import { Route, useHistory, useLocation } from 'react-router-dom';
 
 import CreateGroup from './components/CreateGroup';
 import Group from './components/Group';
-import TodoApp from './components/TodoApp';
+import Tasks from './components/Tasks';
 
-export default class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            groups: null,
-            activeItem: null
-        }
+export default function App() {
+    const [groups, setGroups] = useState(null);
+    const [activeItem, setActiveItem] = useState(null);
 
-        this.onRemoveList = this.onRemoveList.bind(this);
-        this.onAddList = this.onAddList.bind(this);
-        this.onAddTask = this.onAddTask.bind(this);
-        this.onClickGroup = this.onClickGroup.bind(this);
-        this.onRemoveTask = this.onRemoveTask.bind(this);
-        this.onCompleteTask = this.onCompleteTask.bind(this);
-    }
+    let history = useHistory();
+    let location = useLocation();
 
-    componentDidMount() {
+    useEffect(() => {
         axios.get('http://localhost:3001/lists?_embed=tasks').then(({data}) => {
-            this.setState({
-                groups: data
-            })
+            setGroups(data);
         });
-    }
+    }, []);
+ 
+    const onAddList = (obj) => {
+        const newList = [...groups, obj];
+        setGroups(newList);
+    };
 
-    onAddList(obj) {
-        const newList = [...this.state.groups, obj];
+    const onRemoveList = (id) => {
+        const newList = groups.filter(list => list.id !== id);
+        setGroups(newList);
+    };
 
-        this.setState({
-            groups: newList
-        });
-    }
-
-    onRemoveList(id) {
-        const newList = this.state.groups.filter(list => list.id !== id);
-
-        this.setState({
-            groups: newList
-        });
-    }
-
-    onAddTask(listId, taskObj) {
-        const newList = this.state.groups.map(item => {
+    const onAddTask = (listId, taskObj) => {
+        const newList = groups.map(item => {
             if (item.id === listId) {
                 item.tasks = [...item.tasks, taskObj];
             }
             return item;
         });
-        this.setState({
-            groups: newList
-        })
-    }
+        setGroups(newList);
+    };
 
-    onCompleteTask(listId, taskId, completed) {
-        const newList = this.state.groups.map(list => {
+    const onCompleteTask = (listId, taskId, completed) => {
+        const newList = groups.map(list => {
             if (list.id === listId) {
                 list.tasks = list.tasks.filter(task => {
                     if (task.id === taskId) {
@@ -70,9 +52,7 @@ export default class App extends Component {
             return list;
         });
 
-        this.setState({
-            groups: newList
-        });
+        setGroups(newList);
 
         axios.patch('http://localhost:3001/tasks/' + taskId, {
             completed
@@ -80,48 +60,66 @@ export default class App extends Component {
         .catch(() => {
             alert('Не удалось обновить задачу');
         });
-    }
+    };
 
-    onRemoveTask(listId, taskId) {
+    const onRemoveTask = (listId, taskId) => {
         if (window.confirm('Вы точно хотите удалить эту задачу?')) {
-            const newList = this.state.groups.map(item => {
+            const newList = groups.map(item => {
                 if (item.id === listId) {
                     item.tasks = item.tasks.filter(task => task.id !== taskId);
                 }
                 return item;
             });
 
-            this.setState({
-                groups: newList
-            });
+            setGroups(newList);
 
             axios.delete('http://localhost:3001/tasks/' + taskId)
                 .catch(() => {
                     alert('Ошибка при удалении задачи');
                 });
         }
-    }
+    };
 
-    onClickGroup(item) {
-        this.setState({
-            activeItem: item
-        });
-    }
+    const onClickGroup = (list) => {
+        history.push(`/lists/${list.id}`);
+    };
 
-    render() {
-        return (
+    useEffect(() => {
+        const listId = location.pathname.split('lists/')[1];
+
+        if (groups) {
+            const group = groups.find(list => list.id === Number(listId));
+            setActiveItem(group);
+        }
+    }, [groups, location.pathname]);
+
+    return (
            <div className='main__container'>
             <div className='sidebar__container'>
-                {this.state.groups ? (
+                {groups ? (
                     <div className='group__app'>
                         <CreateGroup
-                            onAddList={this.onAddList}
+                            onAddList={onAddList}
                         />
                         <div className='group__list'>
                             <span>Список групп задач: </span>
                             <ul>
-                                {this.state.groups &&
-                                    this.state.groups.map(item => {
+                                <Group
+                                    onClickGroup={group => {
+                                        history.push('/');
+                                    }}
+                                    idForButton='all__groups'
+                                    textContent='Все задачи'
+                                    item={
+                                        {
+                                            active: location.pathname === '/',
+                                        }
+                                    }
+                                    withoutRemove
+                                    withIcon
+                                />
+                                {groups &&
+                                    groups.map(item => {
                                         if (item) {
                                             return (
                                                 <Group  
@@ -129,9 +127,9 @@ export default class App extends Component {
                                                     textContent={item.name}
                                                     id={item.id}
                                                     item={item}
-                                                    onClickGroup={this.onClickGroup}
-                                                    activeItem={this.state.activeItem}
-                                                    onRemove={this.onRemoveList}
+                                                    onClickGroup={onClickGroup}
+                                                    activeItem={activeItem}
+                                                    onRemove={onRemoveList}
                                                 />
                                             );
                                         }
@@ -144,18 +142,34 @@ export default class App extends Component {
                     'Загрузка...'
                 )}
             </div>
-            <div className='main__contant'>
-               {this.state.groups &&
-                    this.state.activeItem && 
-                        <TodoApp
-                            onAdd={this.onAddTask}
-                            groups={this.state.activeItem}
-                            onRemove={this.onRemoveTask}
-                            onComplete={this.onCompleteTask}
-                        />
-                }
+            <div className='main__container-tasks'>
+               <Route exact path='/'>
+                    {groups &&
+                        groups.map(list => (
+                            <Tasks
+                                key={list.id}
+                                onAdd={onAddTask}
+                                groups={list}
+                                onRemove={onRemoveTask}
+                                onComplete={onCompleteTask}
+                                withoutAdd
+                            />
+                        ))
+                    }
+               </Route>
+               <Route path='/lists/:id'>
+                    {groups &&
+                        activeItem && 
+                            <Tasks
+                                onAdd={onAddTask}
+                                groups={activeItem}
+                                onRemove={onRemoveTask}
+                                onComplete={onCompleteTask}
+                            />
+                    }
+               </Route>
             </div>
            </div>
         );
-    }
+    
 }

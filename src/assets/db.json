@@ -76,18 +76,6 @@
       "id": 10
     },
     {
-      "listId": 2,
-      "text": "222",
-      "completed": true,
-      "id": 12
-    },
-    {
-      "listId": 2,
-      "text": "555",
-      "completed": false,
-      "id": 13
-    },
-    {
       "listId": 6,
       "text": "Подтягивание",
       "completed": false,

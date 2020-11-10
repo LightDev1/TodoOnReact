@@ -8,9 +8,14 @@ body {
     font-family: sans-serif;
 }
 
+a {
+    text-decoration: none;
+    color: #000;
+}
+
 .main__container {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     height: 100vh;
 }
 
@@ -112,11 +117,63 @@ body {
     font-size: 14px;
 }
 
+.group__list:hover{
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    -moz-overflow-scrolling: touch;
+    -ms-overflow-scrolling: touch;
+    -o-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
+
+.group__list::-webkit-scrollbar {
+	-webkit-appearance: none;
+	width: 7px;
+}
+.group__list::-webkit-scrollbar-thumb {
+	border-radius: 2px;
+    background-color: #80CBC4;
+    opacity: 0.7;
+	-webkit-box-shadow: 0 0 1px rgba(255,255,255,0.5);
+}
+
+.main__container-tasks {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    overflow: auto;
+}
+
+.main__container-tasks:hover{
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    -moz-overflow-scrolling: touch;
+    -ms-overflow-scrolling: touch;
+    -o-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
+
+.main__container-tasks::-webkit-scrollbar {
+	-webkit-appearance: none;
+	width: 7px;
+}
+.main__container-tasks::-webkit-scrollbar-thumb {
+	border-radius: 2px;
+    background-color: #80CBC4;
+    opacity: 0.7;
+	-webkit-box-shadow: 0 0 1px rgba(255,255,255,0.5);
+}
+
 .main__contant {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     width: 80%;
+}
+
+.main__contant:not(:last-of-type) {
+    margin-bottom: 25px;
 }
 
 .create__task__ctn {
@@ -124,10 +181,11 @@ body {
     align-items: center;
     margin-left: 30px;
     width: 90%;
+    margin-top: 78px;
 }
 
 .task__list {
-    height: 400px;
+    /* height: 400px; */
     margin-left: 30px;
     margin-top: 30px;
     width: 450px;
@@ -139,7 +197,6 @@ body {
 }
 
 .task__list ul {
-    overflow: auto;
     height: 80%;
     margin-top: 20px;
     list-style: none;
@@ -149,9 +206,10 @@ body {
 }
 
 .task__list ul h2 {
-    margin-top: 50px;
+    margin-top: 30px;
     margin-left: 50px;
-    color: #0098F0;
+    color: #000000;
+    opacity: 0.3;
 }
 
 .task__list ul li {
@@ -191,6 +249,7 @@ body {
 .active {
     background-color: #80CBC4;
     color: #ffffff;
+    border: 2px solid red;
 }
 
 .task {
@@ -265,3 +324,13 @@ body {
 	border-right: 100px solid red;
 	border-bottom: 50px solid transparent;
 }
+
+#all__groups {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+
+
+
+

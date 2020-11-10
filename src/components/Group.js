@@ -24,23 +24,25 @@ export default class GroupList extends Component {
 
     render() {
             return (
-                <li
-                    onClick={() => {
-                        this.props.onClickGroup(this.props.item);;
-                    }}
-                    className={classNames({
-                        active: this.props.activeItem && this.props.activeItem.id === this.props.item.id
-                    })}
-                >
-                    <span>
-                        {this.props.textContent}
-                        {this.props.item.tasks && ` (${this.props.item.tasks.length})`}
-                    </span>
-                    <img className='delete__btn' src={Delete} alt='delete' onClick={() => {
-                        this.handleDelClick(this.props.id)
+                    <li id={this.props.idForButton}
+                        onClick={() => {
+                            this.props.onClickGroup(this.props.item);;
                         }}
-                    />
-                </li>
+                        className={classNames({
+                            active: this.props.item.active ? this.props.item.active : this.props.activeItem && this.props.activeItem.id === this.props.item.id
+                        })}
+                    >
+                        <span>
+                            {this.props.textContent}
+                            {this.props.item.tasks && ` (${this.props.item.tasks.length})`}
+                        </span>
+                        {!this.props.withoutRemove &&
+                             <img className='delete__btn' src={Delete} alt='delete' onClick={() => {
+                                this.handleDelClick(this.props.id)
+                                }}
+                            />
+                        }
+                    </li>
             );
     }
 }

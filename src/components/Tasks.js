@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import Task from './Task';
 
@@ -44,14 +45,20 @@ export default class TodoApp extends Component {
     render() {
         return (
             <div className='main__contant'>
-                <div className='create__task__ctn'>
-                    <input name='create' onChange={this.handleChange} value={this.state.text} />
-                    <button className='create__task__btn' onClick={this.addTask}>Добавить задачу</button>
-                </div>
+                {!this.props.withoutAdd &&
+                    <div className='create__task__ctn'>
+                        <input name='create' onChange={this.handleChange} value={this.state.text} />
+                        <button className='create__task__btn' onClick={this.addTask}>Добавить задачу</button>
+                    </div>
+                }
                 <div  className='task__list'>
-                    <span>{this.props.groups.name}</span>
+                    <Link to={`/lists/${this.props.groups.id}`}>
+                        <span>
+                            {this.props.groups.name}
+                        </span>
+                    </Link>
                     <ul>
-                    {!this.props.groups.tasks.length && <h2>Задачи отсутствуют</h2>}
+                    {!this.props.withoutEmpty && !this.props.groups.tasks.length && <h2>Задачи отсутствуют</h2>}
                         {this.props.groups &&
                             this.props.groups.tasks.map(task => (
                             <Task 
